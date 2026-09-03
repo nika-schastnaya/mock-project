@@ -1,0 +1,26 @@
+{
+  // Visit https://aka.ms/tsconfig to read more about this file
+  "compilerOptions": {
+    // Environment Settings
+    "module": "nodenext",
+    "target": "esnext",
+    "lib": ["esnext", "dom"],
+    "types": ["node"],
+    "paths": {
+      "@framework/*": ["./framework/*"],
+      "@pages/*": ["./pages/*"]
+    },
+
+    // Playwright transpiles tests itself — tsc is for type-checking only
+    "noEmit": true,
+
+    // Recommended Options
+    "strict": true,
+    "isolatedModules": true,
+    "moduleDetection": "force",
+    "esModuleInterop": true,
+    "resolveJsonModule": true,
+    "skipLibCheck": true
+  },
+  "include": ["tests", "pages", "framework", "playwright.config.ts"]
+}
