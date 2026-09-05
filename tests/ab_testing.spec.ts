@@ -1,5 +1,4 @@
-import { ABTestingPage } from "@pages/ab_testing_page";
-import { expect, test } from "../fixtures/page_fixture";
+import { expect, test } from "@fixtures/page_fixture";
 
 test.describe("ab_testing", () => {
   test("control variant", async ({ page, context, abTestPage }) => {

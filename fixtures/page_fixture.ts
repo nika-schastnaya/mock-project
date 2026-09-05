@@ -1,8 +1,8 @@
 import { test as base } from "@playwright/test";
-import { ABTestingPage } from "../pages/ab_testing_page";
-import { AddElementPage } from "../pages/add_element_page";
-import { LoginPage } from "../pages/login_page";
-import { SecurePage } from "../pages/secure_page";
+import { ABTestingPage } from "@pages/ab_testing_page";
+import { AddElementPage } from "@pages/add_element_page";
+import { LoginPage } from "@pages/login_page";
+import { SecurePage } from "@pages/secure_page";
 
 type Pages = {
   abTestPage: ABTestingPage;
