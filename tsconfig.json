@@ -5,7 +5,6 @@
     "module": "nodenext",
     "target": "esnext",
     "lib": ["esnext", "dom"],
-    "baseUrl": "./",
     "ignoreDeprecations": "6.0",
     "types": ["node"],
     "paths": {
