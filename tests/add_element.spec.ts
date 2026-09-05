@@ -1,5 +1,4 @@
-import { AddElementPage } from "@pages/add_element_page";
-import { test, expect } from "../fixtures/page_fixture";
+import { test, expect } from "@fixtures/page_fixture";
 import { randomInt } from "crypto";
 
 test.describe("add and remove elements", () => {

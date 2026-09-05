@@ -1,6 +1,5 @@
-import { LoginPage } from "@pages/login_page";
 import { Config } from "@framework/configuration/configuration_helper";
-import { test, expect } from "../fixtures/page_fixture";
+import { test, expect } from "@fixtures/page_fixture";
 
 test.describe("authorization test suite", () => {
   test("authorization happy path", async ({ page, loginPage }) => {
