@@ -5,10 +5,13 @@
     "module": "nodenext",
     "target": "esnext",
     "lib": ["esnext", "dom"],
+    "baseUrl": "./",
+    "ignoreDeprecations": "6.0",
     "types": ["node"],
     "paths": {
       "@framework/*": ["./framework/*"],
-      "@pages/*": ["./pages/*"]
+      "@pages/*": ["./pages/*"],
+      "@fixtures": ["./fixtures/*"]
     },
 
     // Playwright transpiles tests itself — tsc is for type-checking only
