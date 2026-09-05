@@ -1,4 +1,4 @@
-import { test, expect } from "@fixtures/page_fixture";
+import { expect, test } from "@fixtures/page_fixture";
 import { randomInt } from "crypto";
 
 test.describe("add and remove elements", () => {
