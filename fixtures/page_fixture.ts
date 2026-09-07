@@ -3,12 +3,14 @@ import { ABTestingPage } from "@pages/ab_testing_page";
 import { AddElementPage } from "@pages/add_element_page";
 import { LoginPage } from "@pages/login_page";
 import { SecurePage } from "@pages/secure_page";
+import { DragAndDropPage } from "@pages/drag_n_drop";
 
 type Pages = {
   abTestPage: ABTestingPage;
   addElementPage: AddElementPage;
   loginPage: LoginPage;
   securePage: SecurePage;
+  dragAndDropPage: DragAndDropPage;
 };
 
 export const test = base.extend<Pages>({
@@ -23,6 +25,9 @@ export const test = base.extend<Pages>({
   },
   securePage: async ({ page }, use) => {
     await use(new SecurePage(page));
+  },
+  dragAndDropPage: async ({ page }, use) => {
+    await use(new DragAndDropPage(page));
   },
 });
 
