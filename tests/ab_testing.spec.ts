@@ -1,56 +1,50 @@
 import { expect, test } from "@fixtures/page_fixture";
 
 test.describe("ab_testing", () => {
-  test("control variant", async ({ page, context, abTestPage }) => {
-    await abTestPage.setAbVariant(context, abTestPage.variants.control);
+  test("control variant", async ({ abTestPage }) => {
+    const variant = abTestPage.variants.control;
+    await abTestPage.setAbVariant(variant);
     await abTestPage.goto();
 
-    await expect(
-      page.getByRole("heading", { name: "A/B Test Control" }),
-    ).toBeVisible();
+    await expect(abTestPage.header).toHaveText(variant.header);
   });
 
-  test("test variant", async ({ page, context, abTestPage }) => {
-    await abTestPage.setAbVariant(context, abTestPage.variants.variant_1);
+  test("test variant", async ({ abTestPage }) => {
+    const variant = abTestPage.variants.variant_1;
+    await abTestPage.setAbVariant(variant);
     await abTestPage.goto();
 
-    await expect(
-      page.getByRole("heading", { name: "A/B Test Variation 1" }),
-    ).toBeVisible();
+    await expect(abTestPage.header).toHaveText(variant.header);
   });
 
   test("variant is not changed after page reload", async ({
     page,
-    context,
     abTestPage,
   }) => {
-    await abTestPage.setAbVariant(context, abTestPage.variants.control);
-
+    const variant = abTestPage.variants.control;
+    await abTestPage.setAbVariant(variant);
     await abTestPage.goto();
-    await expect(
-      page.getByRole("heading", { name: "A/B Test Control" }),
-    ).toBeVisible();
+
+    await expect(abTestPage.header).toHaveText(variant.header);
+
     await page.reload();
-    await expect(
-      page.getByRole("heading", { name: "A/B Test Control" }),
-    ).toBeVisible();
+
+    await expect(abTestPage.header).toHaveText(variant.header);
   });
 
-  test("variant is not changed after redirection to another page", async ({
+  test("variant persists after navigating away", async ({
     page,
-    context,
     abTestPage,
   }) => {
-    await abTestPage.setAbVariant(context, abTestPage.variants.variant_1);
+    const variant = abTestPage.variants.variant_1;
+    await abTestPage.setAbVariant(variant);
+    await abTestPage.goto();
 
+    await expect(abTestPage.header).toHaveText(variant.header);
+
+    await page.goto("/");
     await abTestPage.goto();
-    await expect(
-      page.getByRole("heading", { name: "A/B Test Variation 1" }),
-    ).toBeVisible();
-    await page.goto("https://google.com/");
-    await abTestPage.goto();
-    await expect(
-      page.getByRole("heading", { name: "A/B Test Variation 1" }),
-    ).toBeVisible();
+
+    await expect(abTestPage.header).toHaveText(variant.header);
   });
 });
