@@ -4,6 +4,7 @@ import { AddElementPage } from "@pages/add_element_page";
 import { LoginPage } from "@pages/login_page";
 import { SecurePage } from "@pages/secure_page";
 import { DragAndDropPage } from "@pages/drag_n_drop";
+import { UploadPage } from "@pages/upload_page";
 
 type Pages = {
   abTestPage: ABTestingPage;
@@ -11,6 +12,7 @@ type Pages = {
   loginPage: LoginPage;
   securePage: SecurePage;
   dragAndDropPage: DragAndDropPage;
+  uploadPage: UploadPage;
 };
 
 export const test = base.extend<Pages>({
@@ -29,6 +31,9 @@ export const test = base.extend<Pages>({
   dragAndDropPage: async ({ page }, use) => {
     await use(new DragAndDropPage(page));
   },
+  uploadPage: async ({ page }, use) => {
+    await use(new UploadPage(page));
+  }
 });
 
 export { expect } from "@playwright/test";
