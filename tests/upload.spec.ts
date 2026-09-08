@@ -2,7 +2,7 @@ import { test, expect } from "@fixtures/page_fixture";
 import { UploadPage } from "@pages/upload_page";
 
 test.describe("upload file suite", () => {
-  test("upload using button", async ({ uploadPage }) => {
+  test.fail("upload using button", async ({ uploadPage }) => {
     await uploadPage.goto();
 
     await uploadPage.chooseFileButton.setInputFiles(

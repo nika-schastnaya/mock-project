@@ -5,6 +5,7 @@ import { LoginPage } from "@pages/login_page";
 import { SecurePage } from "@pages/secure_page";
 import { DragAndDropPage } from "@pages/drag_n_drop";
 import { UploadPage } from "@pages/upload_page";
+import { NestedFramesPage } from "@pages/nested_frames_page";
 
 type Pages = {
   abTestPage: ABTestingPage;
@@ -13,6 +14,7 @@ type Pages = {
   securePage: SecurePage;
   dragAndDropPage: DragAndDropPage;
   uploadPage: UploadPage;
+  nestedFramePage: NestedFramesPage;
 };
 
 export const test = base.extend<Pages>({
@@ -33,7 +35,10 @@ export const test = base.extend<Pages>({
   },
   uploadPage: async ({ page }, use) => {
     await use(new UploadPage(page));
-  }
+  },
+  nestedFramePage: async ({ page }, use) => {
+    await use(new NestedFramesPage(page));
+  },
 });
 
 export { expect } from "@playwright/test";
