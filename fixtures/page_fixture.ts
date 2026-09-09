@@ -6,6 +6,7 @@ import { SecurePage } from "@pages/secure_page";
 import { DragAndDropPage } from "@pages/drag_n_drop";
 import { UploadPage } from "@pages/upload_page";
 import { NestedFramesPage } from "@pages/nested_frames_page";
+import { GeolocationPage } from "@pages/geolocation_page";
 
 type Pages = {
   abTestPage: ABTestingPage;
@@ -15,6 +16,7 @@ type Pages = {
   dragAndDropPage: DragAndDropPage;
   uploadPage: UploadPage;
   nestedFramePage: NestedFramesPage;
+  geolocationPage: GeolocationPage;
 };
 
 export const test = base.extend<Pages>({
@@ -38,6 +40,9 @@ export const test = base.extend<Pages>({
   },
   nestedFramePage: async ({ page }, use) => {
     await use(new NestedFramesPage(page));
+  },
+  geolocationPage: async ({ page }, use) => {
+    await use(new GeolocationPage(page));
   },
 });
 
