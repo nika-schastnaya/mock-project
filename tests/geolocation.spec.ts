@@ -1,6 +1,10 @@
 import { test, expect } from "@fixtures/page_fixture";
 
 test.describe("geolocation suite", () => {
+  test.use({
+    permissions: ["geolocation"],
+    geolocation: { latitude: 40.7829154, longitude: -73.9589494 },
+  });
   test("happy path with current geolocation", async ({
     geolocationPage,
     context,
@@ -16,10 +20,6 @@ test.describe("geolocation suite", () => {
     await expect(geolocationPage.latValue).toContainText("52.25");
   });
 
-  test.use({
-    permissions: ["geolocation"],
-    geolocation: { latitude: 40.7829154, longitude: -73.9589494 },
-  });
   test("New-York geolocation", async ({ geolocationPage }) => {
     await geolocationPage.goto();
 
