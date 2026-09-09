@@ -50,6 +50,7 @@ jobs:
       BASE_URL: ${{ vars.BASE_URL || 'https://the-internet.herokuapp.com' }}
       USERNAME: ${{ secrets.USERNAME }}
       PASSWORD: ${{ secrets.PASSWORD }}
+      UPLOAD_FOLDER: ${{ secrets.UPLOAD_FOLDER }}
     steps:
       - uses: actions/checkout@v7
 

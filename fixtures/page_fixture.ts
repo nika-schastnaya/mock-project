@@ -7,6 +7,7 @@ import { DragAndDropPage } from "@pages/drag_n_drop";
 import { UploadPage } from "@pages/upload_page";
 import { NestedFramesPage } from "@pages/nested_frames_page";
 import { GeolocationPage } from "@pages/geolocation_page";
+import { PathHelper as PathHelper } from "@framework/utils/path_helper";
 
 type Pages = {
   abTestPage: ABTestingPage;
@@ -19,7 +20,11 @@ type Pages = {
   geolocationPage: GeolocationPage;
 };
 
-export const test = base.extend<Pages>({
+type Utils = {
+  pathHelper: PathHelper;
+};
+
+export const test = base.extend<Pages & Utils>({
   abTestPage: async ({ page }, use) => {
     await use(new ABTestingPage(page));
   },
@@ -44,6 +49,7 @@ export const test = base.extend<Pages>({
   geolocationPage: async ({ page }, use) => {
     await use(new GeolocationPage(page));
   },
+  pathHelper: new PathHelper(),
 });
 
 export { expect } from "@playwright/test";

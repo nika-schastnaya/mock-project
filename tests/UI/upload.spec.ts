@@ -1,36 +1,35 @@
 import { test, expect } from "@fixtures/page_fixture";
-import { UploadPage } from "@pages/upload_page";
 
 test.describe("upload file suite", () => {
-  test.fail("upload using button", async ({ uploadPage }) => {
+  test("upload using button", async ({ uploadPage, pathHelper }) => {
+    const uploadsFolder = pathHelper.resolveUploadPath();
+    const fileName = "avocado_wink.png";
     await uploadPage.goto();
 
     await uploadPage.chooseFileButton.setInputFiles(
-      "../Downloads/avocado_wink.png",
+      `${uploadsFolder}/${fileName}`,
     );
     await uploadPage.uploadButton.click();
 
-    await expect(uploadPage.uploadedFilesSection).toContainText(
-      "avocado_wink.png",
-    );
+    await expect(uploadPage.uploadedFilesSection).toContainText(fileName);
   });
 
   test.fail(
     "upload using click on drag and drop zone",
-    async ({ uploadPage }) => {
+    async ({ uploadPage, pathHelper }) => {
+      const uploadsFolder = pathHelper.resolveUploadPath();
+      const fileName = "avocado_wink.png";
       await uploadPage.goto();
 
       await uploadPage.dragDropUpload.click();
       await uploadPage.fileInputs
         .nth(1)
-        .setInputFiles("../Downloads/avocado_wink.png");
+        .setInputFiles(`${uploadsFolder}/${fileName}`);
 
-      await expect(uploadPage.dragDropUpload).toContainText("avocado_wink.png");
+      await expect(uploadPage.dragDropUpload).toContainText(fileName);
       await uploadPage.uploadButton.click();
 
-      await expect(uploadPage.uploadedFilesSection).toContainText(
-        "avocado_wink.png",
-      );
+      await expect(uploadPage.uploadedFilesSection).toContainText(fileName);
     },
   );
 
@@ -47,28 +46,29 @@ test.describe("upload file suite", () => {
 
   test.fail(
     "multiple file upload via drag and drop area",
-    async ({ uploadPage }) => {
+    async ({ uploadPage, pathHelper }) => {
+      const uploadsFolder = pathHelper.resolveUploadPath();
+      const fileNameFirst = "avocado_wink.png";
+      const fileNameSecond = "avocadotongue_q.png";
       await uploadPage.goto();
 
       await uploadPage.dragDropUpload.click();
       await uploadPage.fileInputs
         .nth(1)
         .setInputFiles([
-          "../Downloads/avocado_wink.png",
-          "../Downloads/avocadotongue_q.png",
+          `${uploadsFolder}/${fileNameFirst}`,
+          `${uploadsFolder}/${fileNameSecond}`,
         ]);
 
-      await expect(uploadPage.dragDropUpload).toContainText("avocado_wink.png");
-      await expect(uploadPage.dragDropUpload).toContainText(
-        "avocadotongue_q.png",
-      );
+      await expect(uploadPage.dragDropUpload).toContainText(fileNameFirst);
+      await expect(uploadPage.dragDropUpload).toContainText(fileNameSecond);
       await uploadPage.uploadButton.click();
 
       await expect(uploadPage.uploadedFilesSection).toContainText(
-        "avocado_wink.png",
+        fileNameFirst,
       );
       await expect(uploadPage.uploadedFilesSection).toContainText(
-        "avocadotongue_q.png",
+        fileNameSecond,
       );
     },
   );
