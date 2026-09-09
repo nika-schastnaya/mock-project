@@ -1,9 +1,9 @@
-import * as dotenv from 'dotenv';
-import * as path from 'path';
-import Joi from 'joi';
+import * as dotenv from "dotenv";
+import * as path from "path";
+import Joi from "joi";
 
 // Load environment variables from .env file
-dotenv.config({ path: path.resolve(__dirname, '../../.env') })
+dotenv.config({ path: path.resolve(__dirname, "../../.env") });
 
 // Define Joi schema for configuration validation
 const envSchema = Joi.object({
@@ -13,10 +13,14 @@ const envSchema = Joi.object({
   MAX_TEST_RUNTIME: Joi.number().integer().min(1000).required(),
   BASE_URL: Joi.string().uri().required(),
   USERNAME: Joi.string().required(),
-  PASSWORD: Joi.string().required()
+  PASSWORD: Joi.string().required(),
+  UPLOAD_FOLDER: Joi.string().required(),
 }).unknown(true);
 
-const envVars = envSchema.validate(process.env, { allowUnknown: true, abortEarly: false });
+const envVars = envSchema.validate(process.env, {
+  allowUnknown: true,
+  abortEarly: false,
+});
 
 if (envVars.error) {
   throw new Error(`Invalid configuration: ${envVars.error.message}`);
@@ -30,4 +34,5 @@ export class Config {
   static readonly BASE_URL: string = envVars.value.BASE_URL;
   static readonly USERNAME: string = envVars.value.USERNAME;
   static readonly PASSWORD: string = envVars.value.PASSWORD;
+  static readonly UPLOAD_FOLDER: string = envVars.value.UPLOAD_FOLDER;
 }
