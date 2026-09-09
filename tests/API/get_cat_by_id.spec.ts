@@ -1,8 +1,9 @@
 import { test, expect } from "@fixtures/page_fixture";
+import { Config } from "@framework/configuration/configuration_helper";
 import { get } from "node:http";
 
-test("", async ({ request }) => {
-  const response = await request.get("https://petstore.swagger.io/v2/pet/1", {
+test("get /pet/{pet_id} happy path", async ({ request }) => {
+  const response = await request.get(`${Config.API_BASE_URL}/pet/1`, {
     headers: { accept: "application/json" },
   });
   expect(response.status()).toBe(200);
