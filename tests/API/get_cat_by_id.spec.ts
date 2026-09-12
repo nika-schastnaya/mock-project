@@ -1,7 +1,6 @@
 import { test, expect } from "@fixtures/page_fixture";
 import { Config } from "@framework/configuration/configuration_helper";
 import { randomInt } from "node:crypto";
-import { get } from "node:http";
 
 test.describe("get /pet/{pet_id} suite", () => {
   test("get /pet/{pet_id} happy path", async ({ request }) => {
