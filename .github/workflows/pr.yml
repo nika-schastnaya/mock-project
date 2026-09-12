@@ -48,6 +48,7 @@ jobs:
       RETRY_FAILED: 2
       MAX_TEST_RUNTIME: 60000
       BASE_URL: ${{ vars.BASE_URL || 'https://the-internet.herokuapp.com' }}
+      API_BASE_URL: ${{ vars.API_BASE_URL || 'https://petstore.swagger.io/v2' }}
       USERNAME: ${{ secrets.USERNAME }}
       PASSWORD: ${{ secrets.PASSWORD }}
       UPLOAD_FOLDER: ${{ secrets.UPLOAD_FOLDER }}

@@ -12,6 +12,7 @@ const envSchema = Joi.object({
   RETRY_FAILED: Joi.number().integer().min(0).required(),
   MAX_TEST_RUNTIME: Joi.number().integer().min(1000).required(),
   BASE_URL: Joi.string().uri().required(),
+  API_BASE_URL: Joi.string().uri().required(),
   USERNAME: Joi.string().required(),
   PASSWORD: Joi.string().required(),
   UPLOAD_FOLDER: Joi.string().required(),
@@ -32,6 +33,7 @@ export class Config {
   static readonly RETRY_FAILED: number = envVars.value.RETRY_FAILED;
   static readonly MAX_TEST_RUNTIME: number = envVars.value.MAX_TEST_RUNTIME;
   static readonly BASE_URL: string = envVars.value.BASE_URL;
+  static readonly API_BASE_URL: string = envVars.value.API_BASE_URL;
   static readonly USERNAME: string = envVars.value.USERNAME;
   static readonly PASSWORD: string = envVars.value.PASSWORD;
   static readonly UPLOAD_FOLDER: string = envVars.value.UPLOAD_FOLDER;
