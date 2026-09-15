@@ -5,23 +5,24 @@ import { randomInt } from "node:crypto";
 test.describe("get /pet/{pet_id} suite", () => {
   test("get /pet/{pet_id} happy path", async ({ request }) => {
     const id = randomInt(1, 9999);
-    const createResponse = await request.put(`${Config.API_BASE_URL}/pet`, {
-      data: {
-        id: id,
-        category: {
-          id: 1,
-          name: "puppy",
-        },
-        name: "Pierniczek | Precelek | Cynamonek",
-        photoUrls: [],
-        tags: [
-          {
-            id: 1,
-            name: "pots",
-          },
-        ],
-        status: "available",
+    const data = {
+      id: id,
+      category: {
+        id: 1,
+        name: "puppy",
       },
+      name: "Pierniczek",
+      photoUrls: [],
+      tags: [
+        {
+          id: 1,
+          name: "pots",
+        },
+      ],
+      status: "available",
+    };
+    const createResponse = await request.post(`${Config.API_BASE_URL}/pet`, {
+      data: data,
     });
     expect(createResponse.status()).toBe(200);
     const response = await request.get(`${Config.API_BASE_URL}/pet/${id}`, {
@@ -30,12 +31,7 @@ test.describe("get /pet/{pet_id} suite", () => {
     expect(response.status()).toBe(200);
     const responseBody = await response.json();
 
-    expect(responseBody).toHaveProperty("id");
-    expect(responseBody).toHaveProperty("category");
-    expect(responseBody).toHaveProperty("name");
-    expect(responseBody).toHaveProperty("photoUrls");
-    expect(responseBody).toHaveProperty("tags");
-    expect(responseBody).toHaveProperty("status");
+    expect(responseBody).toMatchObject(data);
   });
 
   test("get /pet/{pet_id} - validate non existing", async ({ request }) => {
@@ -58,7 +54,6 @@ test.describe("get /pet/{pet_id} suite", () => {
       headers: { accept: "application/json" },
     });
     expect(response.status()).toBe(405);
-    console.log(response.json());
   });
 
   test.fail(
@@ -69,7 +64,6 @@ test.describe("get /pet/{pet_id} suite", () => {
         headers: { accept: "application/json" },
       });
       expect(response.status()).toBe(400);
-      console.log(response.json());
     },
   );
 });
