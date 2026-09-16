@@ -1,8 +1,46 @@
-import { test, expect } from "@fixtures/page_fixture";
+import { test, expect } from "@fixtures/api_fixture";
 import { Config } from "@framework/configuration/configuration_helper";
+import { PetApiBuilder } from "@services/api/builders/pet_api_builder";
 import { randomInt } from "node:crypto";
 
 test.describe("get /pet/{pet_id} suite", () => {
+  test("get /pet/{pet_id} happy path 2.0", async ({ apiRequestBuilder }) => {
+    const id = randomInt(1, 9999);
+    console.log(id);
+    const data = {
+      id: id,
+      category: {
+        id: 1,
+        name: "puppy",
+      },
+      name: "Pierniczek",
+      photoUrls: [],
+      tags: [
+        {
+          id: 1,
+          name: "pots",
+        },
+      ],
+      status: "available",
+    };
+    const createResponse = await apiRequestBuilder.petBuilder()
+    .withId(data.id)
+    .withName(data.name)
+    .withStatus('available')
+    .withCategory(data.category)
+    .withTags(data.tags)
+    .sendCreatePet();
+
+    expect(createResponse.ok).toBeTruthy();
+    
+    const getResponse = await apiRequestBuilder.petBuilder()
+    .sendGetPet(data.id);
+
+    expect (getResponse.ok).toBeTruthy();
+    expect (getResponse.body).toMatchObject(data);
+
+  });
+
   test("get /pet/{pet_id} happy path", async ({ request }) => {
     const id = randomInt(1, 9999);
     const data = {

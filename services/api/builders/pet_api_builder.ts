@@ -1,18 +1,21 @@
-import { Config } from "@framework/configuration/configuration_helper";
+import { BaseApiBuilder } from "@framework/api/base_api_builder";
 import { APIRequestContext } from "@playwright/test";
 import { ApiResult, toApiResult } from "@services/api/types/api_results";
 import { Category, Pet, PetStatus, Tag } from "@services/api/types/pet";
+import { ApiPaths } from "../constants/api_urls";
 
 export type CreatePetApiResult = ApiResult<Pet>;
 export type GetPetApiResult = ApiResult<Pet>;
 export type DeletePetApiResult = ApiResult<Pet>;
 
-export class PetApiBuilder {
+export class PetApiBuilder extends BaseApiBuilder {
   private body: Partial<Pet> = {};
   private headers: Record<string, string> = {};
   private rawBody: unknown;
 
-  constructor(private readonly request: APIRequestContext) {}
+  constructor(protected readonly request: APIRequestContext, protected baseUrl: string) {
+    super(request, baseUrl);
+  }
 
   withId(id: number): this {
     this.body.id = id;
@@ -45,7 +48,7 @@ export class PetApiBuilder {
   }
 
   async sendCreatePet(): Promise<CreatePetApiResult> {
-    const response = await this.request.post(`${Config.API_BASE_URL}/pet`, {
+    const response = await this.request.post(`${this.baseUrl}${ApiPaths.pet}`, {
       data: this.rawBody !== undefined ? this.rawBody : this.body,
       headers: this.headers,
     });
@@ -54,7 +57,7 @@ export class PetApiBuilder {
   }
 
   async sendGetPet(id: number): Promise<GetPetApiResult> {
-    const response = await this.request.get(`${Config.API_BASE_URL}/pet/${id}`, { 
+    const response = await this.request.get(`${this.baseUrl}${ApiPaths.petById(id)}`, { 
       headers: this.headers
     });
 
@@ -62,7 +65,7 @@ export class PetApiBuilder {
   }
 
   async sendDeletePet(id: number): Promise<DeletePetApiResult> {
-    const response = await this.request.delete(`${Config.API_BASE_URL}/pet/${id}`, {
+    const response = await this.request.delete(`${this.baseUrl}${ApiPaths.petById(id)}`, {
       headers: this.headers
     });
 
