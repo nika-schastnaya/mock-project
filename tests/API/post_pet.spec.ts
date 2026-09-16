@@ -1,6 +1,5 @@
 import { test, expect } from "@fixtures/page_fixture";
 import { Config } from "@framework/configuration/configuration_helper";
-import { request } from "node:http";
 
 test.describe("post /pet suite", () => {
   test("happy path", async ({ request }) => {
