@@ -1,11 +1,9 @@
-import { test, expect } from "@fixtures/page_fixture";
-import { Config } from "@framework/configuration/configuration_helper";
+import { test, expect } from "@fixtures/api_fixture";
 
 test.describe("post /pet suite", () => {
-  test("happy path", async ({ request }) => {
+  test("happy path", async ({ apiRequestBuilder }) => {
     //arrange
     const data = {
-      id: 0,
       category: {
         id: 1,
         name: "puppy",
@@ -21,17 +19,18 @@ test.describe("post /pet suite", () => {
       status: "available",
     };
 
-    const { id, ...expData } = data;
-
     //act
-    const response = await request.post(`${Config.API_BASE_URL}/pet`, {
-      headers: { accept: "application/json" },
-      data: data,
-    });
+    const response = await apiRequestBuilder
+      .petBuilder()
+      .withCategory(data.category)
+      .withName(data.name)
+      .withPhotoUrls(data.photoUrls)
+      .withStatus("available")
+      .withTags(data.tags)
+      .sendCreatePet();
 
     //assert
-    expect(response.status()).toBe(200);
-    const resBody = await response.json();
-    expect(resBody).toMatchObject(expData);
+    expect(response.ok).toBeTruthy();
+    expect(response.body).toMatchObject(data);
   });
 });

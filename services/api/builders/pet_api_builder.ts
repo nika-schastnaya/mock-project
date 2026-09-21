@@ -2,7 +2,7 @@ import { BaseApiBuilder } from "@framework/api/base_api_builder";
 import { APIRequestContext } from "@playwright/test";
 import { ApiResult, toApiResult } from "@services/api/types/api_results";
 import { Category, Pet, PetStatus, Tag } from "@services/api/types/pet";
-import { ApiPaths } from "../constants/api_urls";
+import { ApiPaths } from "@services/api/constants/api_urls";
 
 export type CreatePetApiResult = ApiResult<Pet>;
 export type GetPetApiResult = ApiResult<Pet>;
@@ -13,7 +13,10 @@ export class PetApiBuilder extends BaseApiBuilder {
   private headers: Record<string, string> = {};
   private rawBody: unknown;
 
-  constructor(protected readonly request: APIRequestContext, protected baseUrl: string) {
+  constructor(
+    protected readonly request: APIRequestContext,
+    protected baseUrl: string,
+  ) {
     super(request, baseUrl);
   }
 
@@ -56,20 +59,25 @@ export class PetApiBuilder extends BaseApiBuilder {
     return toApiResult<Pet>(response);
   }
 
-  async sendGetPet(id: number): Promise<GetPetApiResult> {
-    const response = await this.request.get(`${this.baseUrl}${ApiPaths.petById(id)}`, { 
-      headers: this.headers
-    });
+  async sendGetPet(id: number | string): Promise<GetPetApiResult> {
+    const response = await this.request.get(
+      `${this.baseUrl}${ApiPaths.petById(id)}`,
+      {
+        headers: this.headers,
+      },
+    );
 
     return toApiResult<Pet>(response);
   }
 
-  async sendDeletePet(id: number): Promise<DeletePetApiResult> {
-    const response = await this.request.delete(`${this.baseUrl}${ApiPaths.petById(id)}`, {
-      headers: this.headers
-    });
+  async sendDeletePet(id: string): Promise<DeletePetApiResult> {
+    const response = await this.request.delete(
+      `${this.baseUrl}${ApiPaths.petById(id)}`,
+      {
+        headers: this.headers,
+      },
+    );
 
     return toApiResult<Pet>(response);
   }
-    
 }
