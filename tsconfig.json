@@ -10,7 +10,8 @@
     "paths": {
       "@framework/*": ["./framework/*"],
       "@pages/*": ["./pages/*"],
-      "@fixtures/*": ["./fixtures/*"]
+      "@fixtures/*": ["./fixtures/*"],
+      "@services/*": ["./services/*"]
     },
 
     // Playwright transpiles tests itself — tsc is for type-checking only
@@ -24,5 +25,12 @@
     "resolveJsonModule": true,
     "skipLibCheck": true
   },
-  "include": ["tests", "pages", "framework", "fixtures", "playwright.config.ts"]
+  "include": [
+    "tests",
+    "pages",
+    "framework",
+    "fixtures",
+    "services",
+    "playwright.config.ts"
+  ]
 }
