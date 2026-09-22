@@ -1,6 +1,7 @@
 import { APIRequestContext } from "@playwright/test";
 import { PetApiBuilder } from "@services/api/builders/pet_api_builder";
 import { OrderApiBuilder } from "@services/api/builders/order_api_builder";
+import { InventoryBuilder } from "@services/api/builders/inventory_api_builder";
 
 export class ApiRequestFacade {
   constructor(
@@ -10,4 +11,5 @@ export class ApiRequestFacade {
 
   petBuilder = () => new PetApiBuilder(this.request, this.baseUrl);
   orderBuilder = () => new OrderApiBuilder(this.request, this.baseUrl);
+  inventoryBuilder = () => new InventoryBuilder(this.request, this.baseUrl);
 }

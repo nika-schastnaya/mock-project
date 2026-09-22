@@ -1,8 +1,8 @@
 import { BaseApiBuilder } from "@framework/api/base_api_builder";
 import { APIRequestContext } from "@playwright/test";
 import { Order, OrderStatus } from "@services/api/types/order";
-import { ApiResult, toApiResult } from "../types/api_results";
-import { ApiPaths } from "../constants/api_urls";
+import { ApiResult, toApiResult } from "@services/api/types/api_results";
+import { ApiPaths } from "@services/api/constants/api_urls";
 
 export type CreateOrderApiResult = ApiResult<Order>;
 export type GetOrderApiResult = ApiResult<Order>;
