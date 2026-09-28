@@ -50,6 +50,11 @@ export class PetApiBuilder extends BaseApiBuilder {
     return this;
   }
 
+  withFullBody(body: Partial<Pet>): this {
+    this.body = body;
+    return this;
+  }
+
   async sendCreatePet(): Promise<CreatePetApiResult> {
     const response = await this.request.post(`${this.baseUrl}${ApiPaths.pet}`, {
       data: this.rawBody !== undefined ? this.rawBody : this.body,
