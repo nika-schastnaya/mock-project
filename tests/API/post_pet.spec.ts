@@ -1,4 +1,8 @@
 import { test, expect } from "@fixtures/api_fixture";
+//TODO: refactor to the new system and add post conditions
+//TODO: add upload_image endpoint coverage
+//TODO: add put endpoint and coverage
+//TODO: add delete endpoint coverage
 
 test.describe("post /pet suite", () => {
   test("happy path", async ({ apiRequestBuilder }) => {

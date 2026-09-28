@@ -1,43 +1,23 @@
 import { test, expect } from "@fixtures/api_fixture";
 import { randomInt } from "node:crypto";
 
+// TODO: refactor existing tests to the new system
 test.describe("get /pet/{pet_id} suite", () => {
-  test("get /pet/{pet_id} happy path", async ({ apiRequestBuilder }) => {
-    const id = randomInt(1, 9999);
-    console.log(id);
-    const data = {
-      id: id,
-      category: {
-        id: 1,
-        name: "puppy",
-      },
-      name: "Pierniczek",
-      photoUrls: [],
-      tags: [
-        {
-          id: 1,
-          name: "pots",
-        },
-      ],
-      status: "available",
-    };
-    const createResponse = await apiRequestBuilder
-      .petBuilder()
-      .withId(data.id)
-      .withName(data.name)
-      .withStatus("available")
-      .withCategory(data.category)
-      .withTags(data.tags)
-      .sendCreatePet();
+  test("get /pet/{pet_id} happy path", async ({
+    apiRequestBuilder,
+    apiActions,
+  }) => {
+    //Arrange
+    const createdPet = await apiActions.petActions().createRandomPet();
 
-    expect(createResponse.ok).toBeTruthy();
-
+    //Act
     const getResponse = await apiRequestBuilder
       .petBuilder()
-      .sendGetPet(data.id);
+      .sendGetPet(createdPet.body.id);
 
+    //Assert
     expect(getResponse.ok).toBeTruthy();
-    expect(getResponse.body).toMatchObject(data);
+    expect(getResponse.body).toMatchObject(createdPet.body);
   });
 
   test("get /pet/{pet_id} - validate non existing", async ({
