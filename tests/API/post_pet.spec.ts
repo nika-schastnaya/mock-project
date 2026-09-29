@@ -3,10 +3,9 @@ import { prepareRandomPetData } from "@framework/test data/data_randomiser";
 //TODO: add post conditions
 //TODO: add upload_image endpoint coverage
 //TODO: add put endpoint and coverage
-//TODO: add delete endpoint coverage
 
 test.describe("post /pet suite", () => {
-  test("happy path", async ({ apiActions }) => {
+  test("post /pet happy path", async ({ apiActions }) => {
     //arrange
     const pet = prepareRandomPetData();
 
@@ -18,11 +17,14 @@ test.describe("post /pet suite", () => {
     expect(response.body).toMatchObject(pet);
   });
 
-  test.fail("empty object in body", async ({ apiActions }) => {
-    const pet = {};
+  test.fail(
+    "post /pet - validate empty object in body",
+    async ({ apiActions }) => {
+      const pet = {};
 
-    const response = await apiActions.petActions().createPet(pet);
+      const response = await apiActions.petActions().createPet(pet);
 
-    expect(response.status).toBe(405);
-  });
+      expect(response.status).toBe(405);
+    },
+  );
 });

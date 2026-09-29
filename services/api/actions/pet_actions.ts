@@ -44,6 +44,7 @@ export class PetActions {
 
     expect(deleteResponse.ok).toBeTruthy();
     expect(deleteResponse.body).not.toBeNull();
+    expect(deleteResponse.body.message).toBe(String(id));
 
     return deleteResponse;
   }
