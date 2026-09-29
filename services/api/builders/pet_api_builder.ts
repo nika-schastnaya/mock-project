@@ -3,10 +3,11 @@ import { APIRequestContext } from "@playwright/test";
 import { ApiResult, toApiResult } from "@services/api/types/api_results";
 import { Category, Pet, PetStatus, Tag } from "@services/api/types/pet";
 import { ApiPaths } from "@services/api/constants/api_urls";
+import { ApiResponse } from "@services/api/types/api_response";
 
 export type CreatePetApiResult = ApiResult<Pet>;
 export type GetPetApiResult = ApiResult<Pet>;
-export type DeletePetApiResult = ApiResult<Pet>;
+export type DeletePetApiResult = ApiResult<ApiResponse>;
 
 export class PetApiBuilder extends BaseApiBuilder {
   private body: Partial<Pet> = {};
@@ -83,6 +84,6 @@ export class PetApiBuilder extends BaseApiBuilder {
       },
     );
 
-    return toApiResult<Pet>(response);
+    return toApiResult<ApiResponse>(response);
   }
 }
