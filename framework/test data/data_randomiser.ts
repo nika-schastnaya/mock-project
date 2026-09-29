@@ -1,6 +1,7 @@
 import { faker } from "@faker-js/faker";
+import { Pet, PetStatus } from "@services/api/types/pet";
 
-export function prepareRandomPetData() {
+export function prepareRandomPetData(status: PetStatus = "available"): Pet {
   return {
     id: faker.number.int({ min: 0, max: 9999 }),
     category: {
@@ -15,6 +16,6 @@ export function prepareRandomPetData() {
         name: faker.word.noun(),
       },
     ],
-    status: "available",
+    status,
   };
 }
