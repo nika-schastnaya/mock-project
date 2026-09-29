@@ -75,7 +75,7 @@ export class PetApiBuilder extends BaseApiBuilder {
     return toApiResult<Pet>(response);
   }
 
-  async sendDeletePet(id: string): Promise<DeletePetApiResult> {
+  async sendDeletePet(id: number | string): Promise<DeletePetApiResult> {
     const response = await this.request.delete(
       `${this.baseUrl}${ApiPaths.petById(id)}`,
       {
