@@ -2,7 +2,6 @@ import { test, expect } from "@fixtures/api_fixture";
 import { prepareRandomPetData } from "@framework/test data/data_randomiser";
 //TODO: add post conditions
 //TODO: add upload_image endpoint coverage
-//TODO: add put endpoint and coverage
 
 test.describe("post /pet suite", () => {
   test("post /pet happy path", async ({ apiActions }) => {
