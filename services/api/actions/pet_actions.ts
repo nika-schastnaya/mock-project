@@ -3,6 +3,7 @@ import {
   DeletePetApiResult,
   GetPetApiResult,
   PetApiBuilder,
+  PutPetApiResult,
 } from "@services/api/builders/pet_api_builder";
 import { expect } from "@playwright/test";
 import { prepareRandomPetData } from "@framework/test data/data_randomiser";
@@ -35,6 +36,19 @@ export class PetActions {
 
   async getPetById(id: number | string): Promise<GetPetApiResult> {
     return this.petBuilder.sendGetPet(id);
+  }
+
+  async updatePetSuccessfully(pet: Partial<Pet>): Promise<PutPetApiResult> {
+    const updateResponse = await this.updatePet(pet);
+
+    expect(updateResponse.ok).toBeTruthy();
+    expect(updateResponse.body).not.toBeNull();
+
+    return updateResponse;
+  }
+
+  async updatePet(pet: Partial<Pet>): Promise<PutPetApiResult> {
+    return this.petBuilder.withFullBody(pet).sendPutPet();
   }
 
   async deletePetByIdSuccessfully(

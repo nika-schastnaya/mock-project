@@ -7,6 +7,7 @@ import { ApiResponse } from "@services/api/types/api_response";
 
 export type CreatePetApiResult = ApiResult<Pet>;
 export type GetPetApiResult = ApiResult<Pet>;
+export type PutPetApiResult = ApiResult<Pet>;
 export type DeletePetApiResult = ApiResult<ApiResponse>;
 
 export class PetApiBuilder extends BaseApiBuilder {
@@ -72,6 +73,15 @@ export class PetApiBuilder extends BaseApiBuilder {
         headers: this.headers,
       },
     );
+
+    return toApiResult<Pet>(response);
+  }
+
+  async sendPutPet(): Promise<PutPetApiResult> {
+    const response = await this.request.put(`${this.baseUrl}${ApiPaths.pet}`, {
+      data: this.rawBody !== undefined ? this.rawBody : this.body,
+      headers: this.headers,
+    });
 
     return toApiResult<Pet>(response);
   }
