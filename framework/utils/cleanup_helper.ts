@@ -1,4 +1,4 @@
-export class CleaupRegistry {
+export class CleanupRegistry {
   private actions: Array<() => Promise<void>> = [];
 
   add(action: () => Promise<void>) {

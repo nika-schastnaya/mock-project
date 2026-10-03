@@ -3,13 +3,13 @@ import { test as base, request } from "@playwright/test";
 import { Config } from "@framework/configuration/configuration_helper";
 import { ApiActionFacade } from "@services/api/api_action_facade";
 import { PathHelper } from "@framework/utils/path_helper";
-import { CleaupRegistry } from "@framework/utils/cleanup_helper";
+import { CleanupRegistry } from "@framework/utils/cleanup_helper";
 
 type ApiUtils = {
   apiRequestBuilder: ApiRequestFacade;
   apiActions: ApiActionFacade;
   pathHelper: PathHelper;
-  cleanup: CleaupRegistry;
+  cleanup: CleanupRegistry;
 };
 
 export const test = base.extend<ApiUtils>({
@@ -21,7 +21,7 @@ export const test = base.extend<ApiUtils>({
   },
   pathHelper: new PathHelper(),
   cleanup: async ({}, use) => {
-    const cleanup = new CleaupRegistry();
+    const cleanup = new CleanupRegistry();
     await use(cleanup);
     await cleanup.run();
   },
