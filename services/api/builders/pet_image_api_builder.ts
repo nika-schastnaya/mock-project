@@ -19,8 +19,8 @@ export class PetImageBuilder extends BaseApiBuilder {
 
   async sendUploadFile(
     id: number | string,
-    file: UploadFile,
-    metadata: string,
+    file?: UploadFile,
+    metadata?: string,
   ): Promise<UploadImageApiResult> {
     const multipart: Record<string, string | UploadFile> = {};
 
